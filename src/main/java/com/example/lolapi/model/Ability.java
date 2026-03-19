@@ -1,58 +1,38 @@
-package com.example.lolapi.controller;
+package com.example.lolapi.model;
 
-import com.example.lolapi.model.Character;
-import com.example.lolapi.service.CharacterService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
-import java.util.Optional;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-@RestController
-@CrossOrigin(origins = "*")
-@RequestMapping("/characters")
-public class CharacterController {
+@Entity
+@Table(name = "abilities")
+public class Ability {
 
-    @Autowired
-    private CharacterService characterService;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long abilityId;
 
-    @GetMapping
-    public List<Character> getAllCharacters() {
-        return characterService.getAllCharacters();
-    }
+    @Column(nullable = false)
+    private String name;
 
-    @GetMapping("/{id}")
-    public Optional<Character> getCharacterById(@PathVariable Long id) {
-        return characterService.getCharacterById(id);
-    }
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String description;
 
-    @PostMapping
-    public Character addCharacter(@RequestBody Character character) {
-        return characterService.addCharacter(character);
-    }
+    @ManyToOne
+    @JoinColumn(name = "character_id", nullable = false)
+    @JsonBackReference
+    private Character character;
 
-    @PutMapping("/{id}")
-    public Character updateCharacter(@PathVariable Long id, @RequestBody Character character) {
-        return characterService.updateCharacter(id, character);
-    }
+    public Ability() {}
 
-    @DeleteMapping("/{id}")
-    public String deleteCharacter(@PathVariable Long id) {
-        characterService.deleteCharacter(id);
-        return "Character " + id + " deleted.";
-    }
+    public Long getAbilityId() { return abilityId; }
+    public void setAbilityId(Long abilityId) { this.abilityId = abilityId; }
 
-    @GetMapping("/role/{role}")
-    public List<Character> getByRole(@PathVariable String role) {
-        return characterService.getByRole(role);
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    @GetMapping("/region/{region}")
-    public List<Character> getByRegion(@PathVariable String region) {
-        return characterService.getByRegion(region);
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    @GetMapping("/search")
-    public List<Character> searchByName(@RequestParam String name) {
-        return characterService.getByName(name);
-    }
+    public Character getCharacter() { return character; }
+    public void setCharacter(Character character) { this.character = character; }
 }
