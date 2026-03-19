@@ -9,7 +9,9 @@ target/
 .classpath
 .factorypath
 .project
-.settings
+.settingsgit rm --cached src/main/resources/application.properties
+git commit -m "Remove application.properties from tracking"
+git push
 .springBeans
 .sts4-cache
 
