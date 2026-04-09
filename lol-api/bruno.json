@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "LoL API",
+  "name": "Character API",
   "type": "collection",
   "ignore": [
     "node_modules",
