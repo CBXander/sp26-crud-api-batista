@@ -1,6 +1,6 @@
 # League of Legends Champion API
 
-A Spring Boot web application that displays League of Legends characters and their details.
+A Spring Boot web application that displays my personal favorite League of Legends characters and their details.
 
 ## Technologies Used
 
